@@ -24,3 +24,9 @@ World's first **Q/A decentralized platform** written over **ethereum blockchain*
 ## Impact
 
  incentivizes people to provide value to the community, which in turn reduces knowledge gap present in the society.
+
+## Contributors
+[Mayank Pratap Singh](https://github.com/MayankPratap)
+[Prabhav Agrawal](https://github.com/shoonya26)
+[Shubham Gupta](https://github.com/thesimplest)
+[Abhishek Kumar Singh](https://github.com/Abhishek1103)
