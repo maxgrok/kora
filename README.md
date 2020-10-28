@@ -1,6 +1,6 @@
 # kora
 
-How to run this: 
+How to deploy and interact with the smart contract coin.sol:
 ```bash 
 npm i
 truffle compile
