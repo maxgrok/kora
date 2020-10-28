@@ -1,5 +1,14 @@
 # kora
 
+How to run this: 
+```bash 
+npm i
+truffle compile
+ganache-cli 
+truffle migrate --network development
+truffle console # to interact with contracts
+```
+
 World's first **Q/A decentralized platform** written over **ethereum blockchain** 
 
 
