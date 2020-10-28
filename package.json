@@ -1,0 +1,26 @@
+{
+  "name": "kora",
+  "version": "1.0.0",
+  "description": "kora",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxgrok/kora-fork.git"
+  },
+  "keywords": [
+    "kora"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abhishek1103/kora/issues"
+  },
+  "homepage": "https://github.com/Abhishek1103/kora#readme",
+  "devDependencies": {
+    "hardhat": "^2.0.2",
+    "openzeppelin-solidity": "^1.8.0"
+  }
+}

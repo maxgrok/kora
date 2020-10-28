@@ -1,55 +1,11 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.22;
 pragma experimental ABIEncoderV2; 
 
 
 // Library Deployed Address : 0x96426Bf0d20CF59f55093F9327F10A5bc28209Ff
 // Contract Deployed Address : 0x7501ef246b78912A3D6dA0dbF79f131c03eF6DB0
-
-
-
-
-library SafeMathLib{
-
-    function times(uint64 a, uint64 b) returns (uint64){
-
-        uint64 c = a*b; 
-
-        assert (a==0 || c/a == b);
-
-        return c; 
-
-    }
-
-    function minus(uint64 a, uint64 b ) returns (uint64) {
-
-
-        assert(b<=a);
-
-        return a-b;
-
-    }
-
-    function plus(uint64 a, uint64 b) returns (uint64){
-
-        uint64 c= a+b; 
-        assert(c>=a && c>=b) ;
-        return c;
-
-    }
-
-    function divided(uint64 a, uint64 b) returns (uint64) {
-        require(b > 0);
-        uint64 c = a / b;
-        return c;
-    }
-
-    function assert(bool assertion) private{
-
-        if(!assertion) throw;
-
-    }
-
-}
+import 'openzeppelin-solidity/contracts/math/SafeMath.sol';
+import 'openzeppelin-solidity/contracts/math/Math.sol';
 
 // ----------------------------------------------------------------------------
 // ERC Token Standard #20 Interface
@@ -70,14 +26,13 @@ contract ERC20Interface {
 
 
 
-
 // ----------------------------------------------------------------------------
 // ERC20 Token, with the addition of symbol, name and decimals and assisted
 // token transfers
 // ----------------------------------------------------------------------------
-contract coin is ERC20Interface {
+contract Coin is ERC20Interface {
    
-    using SafeMathLib for uint64; 
+    using SafeMath for uint64; 
 
     address owner; 
     bytes32 public symbol;
@@ -243,8 +198,8 @@ contract coin is ERC20Interface {
     // ------------------------------------------------------------------------
     function transfer(address to, uint64 tokens) public returns (bool success) {
         if(users[msg.sender].coins >= tokens && tokens> 0){
-            users[msg.sender].coins = users[msg.sender].coins.minus(tokens);
-            users[to].coins = users[to].coins.plus(tokens);
+            users[msg.sender].coins = users[msg.sender].coins.sub(tokens);
+            users[to].coins = users[to].coins.add(tokens);
             Transfer(msg.sender, to, tokens);
             return true;
         }else {
@@ -281,9 +236,9 @@ contract coin is ERC20Interface {
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transferFrom(address from, address to, uint64 tokens) public returns (bool success) {
-        users[from].coins = users[from].coins.minus(tokens);
-        allowed[from][msg.sender] = allowed[from][msg.sender].minus(tokens);
-        users[to].coins = users[to].coins.plus(tokens);
+        users[from].coins = users[from].coins.sub(tokens);
+        allowed[from][msg.sender] = allowed[from][msg.sender].sub(tokens);
+        users[to].coins = users[to].coins.add(tokens);
         Transfer(from, to, tokens);
         return true;
     }
@@ -323,7 +278,7 @@ contract coin is ERC20Interface {
     }
 
     function valueAddition (uint8 work, uint8 ipower) internal returns(uint64 va)  {
-        return uint64(work).times(uint64(ipower));
+        return uint64(work).mul(uint64(ipower));
     }
 
     
@@ -332,8 +287,8 @@ contract coin is ERC20Interface {
    function VAU(address user, uint8 work) internal returns(uint64){
         uint64 cp = users[user].coinPower;
         uint64 offset = 10**16;
-        uint64 num = offset.times(valueAddition(work, users[user].ipower).times(cp)); 
-        uint64 vau = num.divided(totalCoinPower);
+        uint64 num = offset.mul(valueAddition(work, users[user].ipower).mul(cp)); 
+        uint64 vau = num.div(totalCoinPower);
         users[user].vau += vau; 
         return vau;
     }
@@ -342,8 +297,8 @@ contract coin is ERC20Interface {
         
         uint64 cp = users[user].coinPower;
         uint64 offset = 10**16;
-        uint64 num = offset.times(uint64(diff).divided(10).times(cp)); 
-        uint64 vau = num.divided(totalCoinPower);
+        uint64 num = offset.mul(uint64(diff).div(10).mul(cp)); 
+        uint64 vau = num.div(totalCoinPower);
         users[user].vau += vau; 
         TVA += vau; 
         return vau;
@@ -356,7 +311,7 @@ contract coin is ERC20Interface {
         uint64 diff = time2 - time1;   // diff is in milliseconds
         require(diff>0);
         
-        uint32 weeksDiff = uint32(diff.divided(1000*84600*7));  
+        uint32 weeksDiff = uint32(diff.div(1000*84600*7));  
           
         return weeksDiff;     
         
@@ -381,7 +336,7 @@ contract coin is ERC20Interface {
         uint i;   // iterator
         for(i=0; i<rd.length; i++)
         {
-            coins += rd[i].amount.times(uint64(diffInWeeks(rd[i].time_of_redeem, uint64(now))).divided(rd[i].span_over_weeks));
+            coins += rd[i].amount.mul(uint64(diffInWeeks(rd[i].time_of_redeem, uint64(now))).div(rd[i].span_over_weeks));
         }
         users[banda].coinPower -= coins;
         totalCoinPower -= coins;
@@ -422,8 +377,8 @@ contract coin is ERC20Interface {
     }
 
      function coinRelease () view internal returns(uint64 coins) {
-        uint64 activity_change = LDCR.times(totalSupply).times(TVA-LDVA).divided(LDVA).plus(LDCR.times(totalSupply));
-        uint64 vad = activity_change.divided(1000000000000000);
+        uint64 activity_change = LDCR.mul(totalSupply).mul(TVA-LDVA).div(LDVA).add(LDCR.mul(totalSupply));
+        uint64 vad = activity_change.div(1000000000000000);
         if(vad >= 10000000000 ){
             
             return 10000000000;
@@ -439,9 +394,9 @@ contract coin is ERC20Interface {
 
       function power_up (uint64 coins) public returns(bool res) {
         if(users[msg.sender].coins >= coins){
-            users[msg.sender].coins = users[msg.sender].coins.minus(coins);
-            users[msg.sender].coinPower = users[msg.sender].coinPower.plus(coins);
-            totalCoinPower = totalCoinPower.plus(coins);
+            users[msg.sender].coins = users[msg.sender].coins.sub(coins);
+            users[msg.sender].coinPower = users[msg.sender].coinPower.add(coins);
+            totalCoinPower = totalCoinPower.add(coins);
             return true;
         }
         else
@@ -595,8 +550,4 @@ contract coin is ERC20Interface {
         return allAnswers.length;
 
     }
-    
-    
-
-
 }

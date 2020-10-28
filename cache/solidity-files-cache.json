@@ -1,0 +1,141 @@
+{
+  "_format": "hh-sol-cache-1",
+  "files": {
+    "/Users/maxgrok/Desktop/kora/contracts/Coin.sol": {
+      "lastModificationDate": 1603894857677,
+      "sourceName": "contracts/Coin.sol",
+      "solcConfig": {
+        "version": "0.4.22",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "openzeppelin-solidity/contracts/math/SafeMath.sol",
+        "openzeppelin-solidity/contracts/math/Math.sol"
+      ],
+      "versionPragmas": [
+        "^0.4.22"
+      ],
+      "artifacts": [
+        "Coin",
+        "ERC20Interface"
+      ]
+    },
+    "/Users/maxgrok/Desktop/kora/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol": {
+      "lastModificationDate": 1603894636444,
+      "sourceName": "openzeppelin-solidity/contracts/math/SafeMath.sol",
+      "solcConfig": {
+        "version": "0.4.22",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.4.18"
+      ],
+      "artifacts": [
+        "SafeMath"
+      ]
+    },
+    "/Users/maxgrok/Desktop/kora/node_modules/openzeppelin-solidity/contracts/math/Math.sol": {
+      "lastModificationDate": 1603893716733,
+      "sourceName": "openzeppelin-solidity/contracts/math/Math.sol",
+      "solcConfig": {
+        "version": "0.4.22",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.4.18"
+      ],
+      "artifacts": [
+        "Math"
+      ]
+    },
+    "/Users/maxgrok/Desktop/kora/contracts/Migrations.sol": {
+      "lastModificationDate": 1603891493259,
+      "sourceName": "contracts/Migrations.sol",
+      "solcConfig": {
+        "version": "0.7.3",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.22 <0.8.0"
+      ],
+      "artifacts": [
+        "Migrations"
+      ]
+    }
+  }
+}
